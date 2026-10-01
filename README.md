@@ -32,3 +32,18 @@ gh release view v<VERSION> --repo piconic-ai/peitho-studio --json assets
 
 Alternatively, download the DMG and calculate its checksum with
 `shasum -a 256 <path-to-dmg>`.
+
+## pedit
+
+Pair edit your local files in the browser. Supports macOS and Linux on Intel
+and ARM64, using the published binaries from [pedit](https://github.com/piconic-ai/edit).
+
+```sh
+brew install piconic-ai/tap/pedit
+brew upgrade piconic-ai/tap/pedit
+```
+
+The upstream release workflow opens a PR updating `Formula/pedit.rb` after
+publishing the binaries. Review and merge these PRs manually. The four SHA-256
+values are calculated from the published archives and checked against
+`checksums.txt`.
