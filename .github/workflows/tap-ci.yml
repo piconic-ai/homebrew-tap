@@ -20,6 +20,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Test release merge guards
+        run: python3 -m unittest discover -s scripts
       - name: Verify the tap
         shell: bash
         run: |
@@ -27,6 +29,7 @@ jobs:
           if [[ "$RUNNER_OS" == Linux ]]; then
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           fi
+          shopt -s nullglob
           brew tap --custom-remote piconic-ai/tap "$GITHUB_WORKSPACE"
           for formula in Formula/*.rb; do
             ruby -c "$formula"
@@ -45,12 +48,4 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           set -euo pipefail
-          for app in /Applications/*.app; do
-            # Only inspect applications declared by this tap's casks.
-            name="$(basename "$app")"
-            if rg --fixed-strings "app \"$name\"" Casks; then
-              codesign --verify --deep --strict "$app"
-              executable=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$app/Contents/Info.plist")
-              test -x "$app/Contents/MacOS/$executable"
-            fi
-          done
+          python3 scripts/verify-cask-apps.py

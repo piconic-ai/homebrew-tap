@@ -68,7 +68,9 @@ Before using the automation, configure the repository:
 
 - Enable **Allow auto-merge** and **Allow squash merging** in Settings > General.
 - Protect `main` and require `tap (ubuntu-latest)` and `tap (macos-latest)`
-  status checks. Run this PR's CI first so the check names are available.
+  status checks, with **Require branches to be up to date before merging** enabled.
+  This ensures changes to `main` trigger fresh validation before merging.
+  Run this PR's CI first so the check names are available.
 - Allow GitHub Actions **Read and write permissions** in Settings > Actions >
   General if organization policy restricts workflow permissions.
 
