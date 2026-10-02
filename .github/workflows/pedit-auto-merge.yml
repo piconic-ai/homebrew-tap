@@ -1,0 +1,26 @@
+name: pedit-auto-merge
+
+on:
+  workflow_run:
+    workflows: [pedit-ci]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: write
+  pull-requests: write
+
+jobs:
+  enable:
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      # Only execute the trusted default-branch script, never PR code.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Enable auto-merge for a verified release update
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/auto-merge-pedit.py
