@@ -1,0 +1,51 @@
+name: tap-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    name: tap (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Test release merge guards
+        run: python3 -m unittest discover -s scripts
+      - name: Verify the tap
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          fi
+          shopt -s nullglob
+          brew tap --custom-remote piconic-ai/tap "$GITHUB_WORKSPACE"
+          for formula in Formula/*.rb; do
+            ruby -c "$formula"
+            name="$(basename "$formula" .rb)"
+            brew install "piconic-ai/tap/$name"
+            brew test "piconic-ai/tap/$name"
+          done
+          for cask in Casks/*.rb; do
+            ruby -c "$cask"
+            if [[ "$RUNNER_OS" == macOS ]]; then
+              name="$(basename "$cask" .rb)"
+              brew install --cask "piconic-ai/tap/$name"
+            fi
+          done
+      - name: Verify installed macOS applications
+        if: runner.os == 'macOS'
+        run: |
+          set -euo pipefail
+          python3 scripts/verify-cask-apps.py
