@@ -1,8 +1,8 @@
-name: pedit-auto-merge
+name: tap-auto-merge
 
 on:
   workflow_run:
-    workflows: [pedit-ci]
+    workflows: [tap-ci]
     types: [completed]
 
 permissions:
@@ -23,4 +23,4 @@ jobs:
       - name: Enable auto-merge for a verified release update
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 scripts/auto-merge-pedit.py
+        run: python3 scripts/auto-merge-release.py
