@@ -36,7 +36,7 @@ Alternatively, download the DMG and calculate its checksum with
 ## pedit
 
 Pair edit your local files in the browser. Supports macOS and Linux on Intel
-and ARM64, using the published binaries from [pedit](https://github.com/piconic-ai/edit).
+and ARM64, using the published binaries from [pedit](https://github.com/piconic-ai/pedit).
 
 ```sh
 brew install piconic-ai/tap/pedit
