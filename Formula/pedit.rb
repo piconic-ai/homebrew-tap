@@ -1,28 +1,28 @@
 class Pedit < Formula
   desc "Pair edit your local files in the browser"
   homepage "https://github.com/piconic-ai/pedit"
-  version "0.1.16"
+  version "0.1.17"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://github.com/piconic-ai/pedit/releases/download/v#{version}/pedit_v#{version}_darwin_arm64.tar.gz"
-      sha256 "7e066a8a4b5830a3f5cefe28215fc632513da083940f43dacdb77d5e242f3acc" # darwin/arm64
+      sha256 "21710e2fba3ca2078a7ece95b17459c4c44bf03d673c61b3a1a5c653a62220ba" # darwin/arm64
     end
     on_intel do
       url "https://github.com/piconic-ai/pedit/releases/download/v#{version}/pedit_v#{version}_darwin_amd64.tar.gz"
-      sha256 "409379071ece5e0d61802f58c1fc58e944dd37cd29aa5a2638fd05fd9a547e4f" # darwin/amd64
+      sha256 "7df1f423646bfc9883228027f36574edcb92815fea0f887a5fe188988e847f2c" # darwin/amd64
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/piconic-ai/pedit/releases/download/v#{version}/pedit_v#{version}_linux_arm64.tar.gz"
-      sha256 "3fd87a60c4f5297c1578a35c747e04f9e70ec9b485158cfe6bdd79983e488684" # linux/arm64
+      sha256 "b65595c5ea1e4c018d636d7d1304393bf756e3a064ec84add7a6cd22419819eb" # linux/arm64
     end
     on_intel do
       url "https://github.com/piconic-ai/pedit/releases/download/v#{version}/pedit_v#{version}_linux_amd64.tar.gz"
-      sha256 "2adc846f5730c1706592fcebad34b585b3642a10f14160a4819420b80c6d6a67" # linux/amd64
+      sha256 "d605f2d5297e659ac2c9ac12da45b8272073efd17b1c30464e13f1059930eced" # linux/amd64
     end
   end
 
