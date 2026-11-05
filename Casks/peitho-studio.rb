@@ -1,6 +1,6 @@
 cask "peitho-studio" do
-  version "0.1.11"
-  sha256 "c45b47514ad10ef6915351b897f8f0ae6935f07108ac6cf729c00229fc3f59a5"
+  version "0.1.12"
+  sha256 "7ddc18a0aeabb25fde7522d9b467f87aa97b09c0cf1b8435574547242ab08fc7"
 
   url "https://github.com/piconic-ai/peitho-studio/releases/download/v#{version}/Peitho-Studio_#{version}_aarch64.dmg"
   name "Peitho Studio"
